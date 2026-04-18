@@ -5,35 +5,27 @@
 ## 适用对象与前提
 
 - **目标用户**：需要在本地用 Python + Jupyter 操作 RIGOL 测控硬件（如 PowerQ / MCI 等）的研发与实验人员。
-- **运行环境**：Windows / Linux / macOS 均可，需 **Python 3.13 或更高版本**（与 `pyproject.toml` 中 `requires-python` 一致）。
+- **运行环境**：Windows / Linux / macOS 均可，需安装python。
 - **网络**：电脑与设备处于可互通的局域网，并已知 **设备 IP**（及 QSYNC 所用 IP，可与主设备相同或按现场划分）。
-- **工具**：本说明假定使用 **[uv](https://docs.astral.sh/uv/)** 管理依赖与运行命令；安装方式见 [uv 安装文档](https://docs.astral.sh/uv/getting-started/installation/)。
-
-## 仓库里有什么
-
-| 内容 | 说明 |
-|------|------|
-| `pyproject.toml` | 项目元数据与依赖列表（含 `nsqdriver==0.12.18` 等）。 |
-| `uv.lock` | 锁定依赖版本，与 `uv sync` 配合可复现相同环境。 |
-| `PowerQ_UG_0225_备份不动.ipynb` | **主教程**：从系统初始化到 PQ-XY / PQ-ZC / PQ-RD 及多种标定与测量示例。 |
-| `main.py` | 占位入口；日常测控以笔记本为主。 |
+- **工具**：使用 **[uv](https://docs.astral.sh/uv/)** 管理依赖与运行命令；安装方式见 [uv 安装文档](https://docs.astral.sh/uv/getting-started/installation/)。
 
 ## 使用 uv 安装与运行
 
-### 1. 准备 Python
+### 1. 准备
 
-终端中确认已安装 Python 3.13+：
+终端中确认已安装 Python和 uv：
 
 ```bash
 python --version
+uv -V
 ```
 
-### 2. 获取代码
+### 2. 安装
 
-将仓库地址换成你的 GitHub 地址：
+在终端打开：
 
 ```bash
-git clone <你的仓库 URL>
+git clone https://github.com/SJY0205/nslab.git
 cd nslab
 ```
 
@@ -45,8 +37,6 @@ cd nslab
 uv sync
 ```
 
-会根据 `pyproject.toml` 与 `uv.lock` 安装依赖，并管理项目虚拟环境（默认 `.venv`）。
-
 ### 4. 启动 Jupyter Lab
 
 仍在仓库根目录：
@@ -55,15 +45,9 @@ uv sync
 uv run jupyter lab
 ```
 
-浏览器打开界面后，打开 **`PowerQ_UG_0225_备份不动.ipynb`**。若笔记本内核列表里没有本项目环境，可在 Jupyter 内核选择器里选带 `.venv` 的 Python，或在项目根目录执行一次：
+浏览器打开界面后，打开 **`Program/PowerQ_UG_0225_备份不动.ipynb`**等，其中包括各种操作历程。
 
-```bash
-uv run python -m ipykernel install --user --name nslab
-```
-
-之后在笔记本中选择名为 **nslab** 的内核即可。
-
-## 使用教程笔记本：第一步要改什么
+## 使用教程
 
 1. 打开 `PowerQ_UG_0225_备份不动.ipynb`。
 2. 在 **「3.1 系统初始化」** 的代码单元中，把示例 IP 改成现场地址：
@@ -80,14 +64,6 @@ uv run python -m ipykernel install --user --name nslab
 - **4.x / 11.x** 等：S21、谱、Rabi、T1、Ramsey 等示例  
 
 请在充分理解硬件与参数含义的前提下修改 `sysparam`、`qsync_param`、通道名与采样率等；错误配置可能导致设备行为与预期不符。
-
-## 依赖说明（摘要）
-
-- **`nsqdriver`**：设备通信驱动（当前锁定 `0.12.18`）。  
-- **`jupyterlab`**、**`ipykernel`**、**`ipywidgets`**：交互式教程。  
-- **`numpy`**、**`matplotlib`**、**`tqdm`**：计算、绘图与进度。
-
-更新依赖时，请同步维护 `pyproject.toml` 与 `uv.lock`（例如使用 `uv lock` / `uv sync`），并在目标硬件上回归测试。
 
 ## 常见问题
 
