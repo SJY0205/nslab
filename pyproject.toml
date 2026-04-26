@@ -13,4 +13,12 @@ dependencies = [
     "jupyterlab>=4.2",
     "nsqdriver==0.12.18",
     "pip>=26.0.1",
+    "notebook>=7.5.5",
+    "ipympl>=0.10.0",
+    "jupyter>=1.1.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0",
 ]
