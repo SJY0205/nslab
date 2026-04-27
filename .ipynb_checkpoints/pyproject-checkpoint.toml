@@ -1,0 +1,24 @@
+[project]
+name = "nslab"
+version = "0.1.0"
+description = "nslab 脚本与驱动依赖"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.0.0",
+    "matplotlib>=3.8",
+    "tqdm>=4.66",
+    "ipywidgets>=8.0",
+    "ipykernel>=6.29",
+    "jupyterlab>=4.2",
+    "nsqdriver==0.12.18",
+    "pip>=26.0.1",
+    "notebook>=7.5.5",
+    "ipympl>=0.10.0",
+    "jupyter>=1.1.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0",
+]
